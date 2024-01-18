@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Register</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .gradient-custom {
+
+        background: #555455;
+        background: -webkit-linear-gradient(to bottom right, rgb(134, 134, 134), rgb(109, 106, 107));
+        background: linear-gradient(to bottom right, rgb(190, 189, 190), rgb(148, 145, 145))
+    }
+
+    .card-registration .select-input.form-control[readonly]:not([disabled]) {
+        font-size: 1rem;
+        line-height: 2.15;
+        padding-left: .75em;
+        padding-right: .75em;
+    }
+
+    .containerform {
+        margin-top: 50px;
+    }
+
+    .card {
+        border: 2px solid rgb(0, 0, 0);
+        box-shadow: 0 0 15px 3px white;
+    }
+
+    .row .form-outline input {
+        border-radius: 20px;
+        border: 1px solid black;
+    }
+
+
+     /*radio button design*/
+    
+     .btn-radio {
+        cursor: pointer;
+        display: inline-block;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+    
+    .btn-radio:not(:first-child) {
+        margin-left: 20px;
+    }
+    
+    @media screen and (max-width: 480px) {
+        .btn-radio {
+            display: block;
+            float: none;
+        }
+        .btn-radio:not(:first-child) {
+            margin-left: 0;
+            margin-top: 15px;
+        }
+    }
+    
+    .btn-radio svg {
+        fill: none;
+        vertical-align: middle;
+    }
+    
+    .btn-radio svg circle {
+        stroke-width: 2;
+        stroke: #C8CCD4;
+    }
+    
+    .btn-radio svg path {
+        stroke: #008FFF;
+    }
+    
+    .btn-radio svg path.inner {
+        stroke-width: 6;
+        stroke-dasharray: 19;
+        stroke-dashoffset: 19;
+    }
+    
+    .btn-radio svg path.outer {
+        stroke-width: 2;
+        stroke-dasharray: 57;
+        stroke-dashoffset: 57;
+    }
+    
+    .btn-radio input {
+        display: none;
+    }
+    
+    .btn-radio input:checked+svg path {
+        transition: all 0.4s ease;
+    }
+    
+    .btn-radio input:checked+svg path.inner {
+        stroke-dashoffset: 38;
+        transition-delay: 0.3s;
+    }
+    
+    .btn-radio input:checked+svg path.outer {
+        stroke-dashoffset: 0;
+    }
+    
+    .btn-radio span {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+
+
+    .button {
+        text-decoration: none;
+        text-transform: uppercase;
+        font-family: "Exo 2", sans-serif;
+        font-weight: 300;
+        font-size: 15px;
+        display: inline-block;
+        position: relative;
+        color: #000000;
+        background-color: #ffffff;
+        border: 1px solid #000000;
+        border-radius: 20px;
+        line-height: 3em;
+        padding-left: 5em;
+        padding-right: 5em;
+        margin-left: 0.2rem;
+       
+        box-shadow: 0 0 0 0 transparent;
+        -webkit-transition: all 0.2s ease-in;
+        -moz-transition: all 0.2s ease-in;
+        transition: all 0.2s ease-in;
+    }
+    
+    .button:hover {
+        color: white;
+        box-shadow: 0 0 30px 0 rgba(0, 199, 236, 0.5);
+        background-color: #00c7ec;
+        -webkit-transition: all 0.2s ease-out;
+        -moz-transition: all 0.2s ease-out;
+        transition: all 0.2s ease-out;
+    }
+    
+    .button:hover:before {
+        -webkit-animation: shine 0.5s 0s linear;
+        -moz-animation: shine 0.5s 0s linear;
+        animation: shine 0.5s 0s linear;
+    }
+    
+    .button:active {
+        box-shadow: 0 0 0 0 transparent;
+        -webkit-transition: box-shadow 0.2s ease-in;
+        -moz-transition: box-shadow 0.2s ease-in;
+        transition: box-shadow 0.2s ease-in;
+    }
+    
+    .button:before {
+        content: "";
+        display: block;
+        width: 0px;
+        height: 86%;
+        position: absolute;
+        top: 7%;
+        left: 0%;
+        opacity: 0;
+        background: white;
+        box-shadow: 0 0 15px 3px white;
+        -webkit-transform: skewX(-20deg);
+        -moz-transform: skewX(-20deg);
+        -ms-transform: skewX(-20deg);
+        -o-transform: skewX(-20deg);
+        transform: skewX(-20deg);
+    }
+    
+    @-webkit-keyframes shine {
+        from {
+            opacity: 0;
+            left: 0%;
+        }
+        50% {
+            opacity: 1;
+        }
+        to {
+            opacity: 0;
+            left: 100%;
+        }
+    }
+    
+    @-moz-keyframes shine {
+        from {
+            opacity: 0;
+            left: 0%;
+        }
+        50% {
+            opacity: 1;
+        }
+        to {
+            opacity: 0;
+            left: 100%;
+        }
+    }
+    
+    @keyframes shine {
+        from {
+            opacity: 0;
+            left: 0%;
+        }
+        50% {
+            opacity: 1;
+        }
+        to {
+            opacity: 0;
+            left: 100%;
+        }
+    }
+</style>
+
+<body>
+    <nav class="navbar navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/students}">Student Management System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
+                aria-labelledby="offcanvasDarkNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" th:href="@{/students}">Home</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" th:href="@{/students/new}">Create Student</a>
+                        </li>
+                    </ul>
+                   
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="vh-100 gradient-custom">
+        <div class="container py-1 h-100">
+            <div class="row justify-content-center align-items-center h-100">
+                <div class="col-12 col-lg-9 col-xl-7">
+                    <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                        <div class="card-body p-4 p-md-5">
+                            <h3 class="d-flex justify-content-center" style="font-size: 3rem;">Update Student</h3>
+                            <form class="containerform" th:action="@{/students/{id} (id=${student.id})}" th:object="${student}" method="POST">
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-7">
+
+                                        <div class="form-outline">
+                                            <input type="text"  name="firstName" th:field="*{firstName}" id="firstName" class="form-control form-control-lg"
+                                                placeholder="First Name" />
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+
+                                        <div class="form-outline">
+                                            <input type="text" name="lastName" th:field="*{lastName}" id="lastName" class="form-control form-control-lg"
+                                                placeholder="Last Name" />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-4 d-flex align-items-center">
+
+                                        <div class="form-outline datepicker w-100">
+                                            <input type="date" name="dateOfBirth" th:field="*{dateOfBirth}" class="form-control form-control-lg" id="birthdayDate"   placeholder="Date Of Birth"/>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+
+                                        <h6 class="mb-2 pb-1">Gender: </h6>
+
+
+                                        <div class="btnradio-design">
+                                            <label for="rdo-1" class="btn-radio">
+                                                <input type="radio" id="rdo-1" name="gender" th:field="*{gender}"  value="male" checked>
+                                                <svg width="20px" height="20px" viewbox="0 0 20 20">
+                                                    <circle cx="10" cy="10" r="9"></circle>
+                                                    <path
+                                                        d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                                        class="inner"></path>
+                                                    <path
+                                                        d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                                        class="outer"></path>
+                                                </svg>
+                                                <span>Male</span>
+                                            </label>
+                                            <label for="rdo-2" class="btn-radio">
+                                                <input type="radio" id="rdo-2" name="gender" th:field="*{gender}" value="female">
+                                                <svg width="20px" height="20px" viewbox="0 0 20 20">
+                                                    <circle cx="10" cy="10" r="9"></circle>
+                                                    <path
+                                                        d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                                        class="inner"></path>
+                                                    <path
+                                                        d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                                        class="outer"></path>
+                                                </svg>
+                                                <span>Female</span>
+                                            </label>
+                                            <label for="rdo-3" class="btn-radio">
+                                                <input type="radio" id="rdo-3" name="gender" th:field="*{gender}" value="other">
+                                                <svg width="20px" height="20px" viewbox="0 0 20 20">
+                                                    <circle cx="10" cy="10" r="9"></circle>
+                                                    <path
+                                                        d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                                        class="inner"></path>
+                                                    <path
+                                                        d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                                        class="outer"></path>
+                                                </svg>
+                                                <span>Other</span>
+                                            </label>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-4 pb-2">
+
+                                        <div class="form-outline">
+                                            <input type="email" id="emailAddress" name="email" th:field="*{email}" class="form-control form-control-lg"
+                                                placeholder="Email" />
+
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6 mb-4 pb-2">
+
+                                        <div class="form-outline">
+                                            <input type="tel" id="phoneNumber" name="phoneNumber" th:field="*{phoneNumber}" class="form-control form-control-lg"
+                                                placeholder="Phone Number" />
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="mt-4 pt-2">
+                                    <input class="btn  button" type="submit" value="Submit" />
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
