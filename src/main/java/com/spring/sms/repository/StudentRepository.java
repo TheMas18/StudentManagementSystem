@@ -8,5 +8,4 @@ import com.spring.sms.entity.Student;
 //JpaRepository extends the class SimpleJpaRepository which have by default @Repository added
 
 public interface StudentRepository extends JpaRepository<Student, Long> {
-
 }
